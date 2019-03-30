@@ -10,7 +10,7 @@
             android:supportsRtl="true"
             android:name=".application.DadJokeApp"
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.BaseMvpActivity">
+        <activity android:name=".ui.employee.EmployeeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
