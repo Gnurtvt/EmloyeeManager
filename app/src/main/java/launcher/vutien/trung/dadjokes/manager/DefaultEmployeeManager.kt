@@ -1,6 +1,5 @@
 package launcher.vutien.trung.dadjokes.manager
 
-import android.util.Log
 import io.reactivex.Observable
 import launcher.vutien.trung.dadjokes.api.ClientApi
 import launcher.vutien.trung.dadjokes.entity.Employee
@@ -12,7 +11,7 @@ class DefaultEmployeeManager(
 ) : EmployeeManager {
 
     override fun getEmployee(): Observable<List<Employee>> =
-        Observable.concat(
+        Observable.concatArray(
             getFromApi(),
             getFromDb()
         )
@@ -26,9 +25,6 @@ class DefaultEmployeeManager(
 
     private fun saveEmpsToDb(emps: List<Employee>) {
         if (emps.isNotEmpty())
-            for (emp in emps) {
-                Log.i("DATABASE", emp.toString())
-                repository.insertEmp(emp)
-            }
+            repository.insertMany(emps)
     }
 }

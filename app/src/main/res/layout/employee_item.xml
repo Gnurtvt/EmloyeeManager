@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cv_container"
+        android:layout_margin="10dp"
+>
+
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:orientation="vertical">
+        <TextView android:layout_width="match_parent" android:layout_height="@dimen/height_tv"
+                  android:id="@+id/tv_idEmp"
+                  android:drawableStart="@drawable/icon_id"
+                  android:layout_gravity="center_horizontal"
+                  android:drawablePadding="@dimen/drawble_margin"
+        />
+
+        <TextView android:layout_width="wrap_content" android:layout_height="@dimen/height_tv"
+                  android:id="@+id/tv_nameEmp"
+                  android:drawableStart="@drawable/icon_name"
+                  android:layout_gravity="center_horizontal"
+                  android:drawablePadding="@dimen/drawble_margin"
+        />
+
+        <TextView android:layout_width="wrap_content" android:layout_height="@dimen/height_tv"
+                  android:id="@+id/tv_salary"
+                  android:drawableStart="@drawable/icon_salary"
+                  android:layout_gravity="center_horizontal"
+                  android:drawablePadding="@dimen/drawble_margin"
+        />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

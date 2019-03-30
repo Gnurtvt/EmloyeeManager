@@ -2,8 +2,9 @@ package launcher.vutien.trung.dadjokes.ui.employee
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import kotlinx.android.synthetic.main.activity_base_mvp.*
+import kotlinx.android.synthetic.main.activity_employee.*
 import launcher.vutien.trung.dadjokes.R
 import launcher.vutien.trung.dadjokes.api.ClientApi
 import launcher.vutien.trung.dadjokes.entity.Employee
@@ -11,6 +12,7 @@ import launcher.vutien.trung.dadjokes.manager.DefaultEmployeeManager
 import launcher.vutien.trung.dadjokes.repository.AppDatabase
 import launcher.vutien.trung.dadjokes.repository.EmployeeRepositoryImpl
 import launcher.vutien.trung.dadjokes.ui.BaseMvpActivity
+import launcher.vutien.trung.dadjokes.ui.adapter.EmployeeAdapter
 import launcher.vutien.trung.dadjokes.utils.Constants
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -22,14 +24,8 @@ class EmployeeActivity : BaseMvpActivity<EmployeeContract.View,EmployeeContract.
         val TAG : String = "Acitivty"
     }
 
-    var result = ""
     override fun onLoadedEmployee(emps: List<Employee>) {
-        for (emp in emps) {
-            result += emp
-        }
-        println("result : $result")
-        if (result != "")
-            result_display.text = result
+        rv_list_employee.adapter = EmployeeAdapter(emps,this)
     }
 
     override fun onLoadingEmployee() {
@@ -54,10 +50,16 @@ class EmployeeActivity : BaseMvpActivity<EmployeeContract.View,EmployeeContract.
         return EmployeePresenter(employeemanager)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        setContentView(R.layout.activity_base_mvp)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_employee)
         Log.i(TAG,"onCreate")
+
+        rv_list_employee.layoutManager = LinearLayoutManager(this)
+
+        load_emp_btn.setOnClickListener {
+            presenter.loadEmployee()
+        }
     }
 
     override fun onStart() {
