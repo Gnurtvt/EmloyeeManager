@@ -12,5 +12,7 @@ class EmployeeRepositoryImpl(private val db : AppDatabase) : EmployeeRepository{
         db.employeeDao().insertEmployee(emp)
     }
 
-    override fun getEmployee(): Observable<List<Employee>> = db.employeeDao().getAll().toObservable()
+    override fun getEmployee(): Observable<List<Employee>> {
+        return db.employeeDao().getAll().toObservable()
+    }
 }

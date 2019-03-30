@@ -4,6 +4,7 @@ import android.arch.persistence.room.*
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import io.reactivex.Maybe
 
+@Dao
 interface EmployeeDao{
     @Insert (onConflict = REPLACE)
     fun insertEmployee(emp : Employee)
