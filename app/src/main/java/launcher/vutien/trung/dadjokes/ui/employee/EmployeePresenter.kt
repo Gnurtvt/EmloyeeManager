@@ -20,7 +20,9 @@ class EmployeePresenter(private val empMgr : EmployeeManager)
     override fun loadEmployee() {
         Log.i(TAG,"loadEmployee")
         compositeDisposable.add(
-        empMgr.getEmployee().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).doOnSubscribe { view?.onLoadingEmployee() }
+        empMgr.getEmployee().observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .doOnSubscribe { view?.onLoadingEmployee() }
             .subscribe(this::handleResponse,
             this::handleError))
     }

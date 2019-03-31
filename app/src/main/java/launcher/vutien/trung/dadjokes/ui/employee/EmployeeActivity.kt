@@ -14,6 +14,7 @@ import launcher.vutien.trung.dadjokes.repository.EmployeeRepositoryImpl
 import launcher.vutien.trung.dadjokes.ui.BaseMvpActivity
 import launcher.vutien.trung.dadjokes.ui.adapter.EmployeeAdapter
 import launcher.vutien.trung.dadjokes.utils.Constants
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -25,6 +26,7 @@ class EmployeeActivity : BaseMvpActivity<EmployeeContract.View,EmployeeContract.
     }
 
     override fun onLoadedEmployee(emps: List<Employee>) {
+        Log.i(TAG,"Size : " + emps.size)
         rv_list_employee.adapter = EmployeeAdapter(emps,this)
     }
 
@@ -38,8 +40,10 @@ class EmployeeActivity : BaseMvpActivity<EmployeeContract.View,EmployeeContract.
     }
 
     override fun createPresenter(): EmployeeContract.UserActionListener {
+        val okhttp = OkHttpClient().newBuilder().build()
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
+            .client(okhttp)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
@@ -57,13 +61,7 @@ class EmployeeActivity : BaseMvpActivity<EmployeeContract.View,EmployeeContract.
 
         rv_list_employee.layoutManager = LinearLayoutManager(this)
 
-        load_emp_btn.setOnClickListener {
-            presenter.loadEmployee()
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
         presenter.loadEmployee()
+
     }
 }

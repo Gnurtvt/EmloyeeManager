@@ -1,6 +1,9 @@
 package launcher.vutien.trung.dadjokes.manager
 
 import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import launcher.vutien.trung.dadjokes.api.ClientApi
 import launcher.vutien.trung.dadjokes.entity.Employee
 import launcher.vutien.trung.dadjokes.repository.EmployeeRepositoryImpl
@@ -11,11 +14,10 @@ class DefaultEmployeeManager(
 ) : EmployeeManager {
 
     override fun getEmployee(): Observable<List<Employee>> =
-        Observable.concatArray(
-            getFromApi(),
-            getFromDb()
+        Observable.concatArrayDelayError(
+            getFromDb(),
+            getFromApi()
         )
-
 
     private fun getFromApi(): Observable<List<Employee>> =
         api.getEmployees().doOnNext(this::saveEmpsToDb)
