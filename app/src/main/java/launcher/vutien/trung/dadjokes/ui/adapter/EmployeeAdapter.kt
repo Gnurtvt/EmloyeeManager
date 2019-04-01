@@ -18,8 +18,8 @@ class EmployeeAdapter(val items : List<Employee>, val context : Context) : Recyc
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         p0.tvEmployeeId?.text = items.get(p1).id.toString()
-        p0.tvEmployeeName?.text = items.get(p1).name
-        p0.tvEmployeeSalary?.text = items.get(p1).salary.toString()
+        p0.tvEmployeeName?.text = items.get(p1).firstName
+        p0.tvEmployeeSalary?.text = items.get(p1).lastName
         p0.container.setCardBackgroundColor(if(p1%2==0) Color.LTGRAY else Color.GRAY)
     }
 

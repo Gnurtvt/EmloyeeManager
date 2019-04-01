@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface ClientApi {
 
-    @GET("employees")
+    @GET("users")
     fun getEmployees() : Observable<List<Employee>>
 
 }
