@@ -14,7 +14,7 @@ class DefaultEmployeeManager(
 ) : EmployeeManager {
 
     override fun getEmployee(): Observable<List<Employee>> =
-        Observable.concatArrayDelayError(
+        Observable.mergeDelayError(
             getFromDb(),
             getFromApi()
         )
