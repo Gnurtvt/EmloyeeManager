@@ -19,7 +19,7 @@ class AppModule{
 
     @Provides
     @Singleton
-    fun provideAppDatabase(context : Context) : AppDatabase? =
+    fun provideAppDatabase(context : Context) : AppDatabase =
             AppDatabase.getInstance(context)
 
     fun provideEmployeeRepository(appDatabase: AppDatabase) : EmployeeRepositoryImpl =

@@ -19,10 +19,10 @@ class NetworkModule{
 
     @Provides
     @Singleton
-    fun provideRetrofitClientApi(okhttpclient : OkHttpClient) : ClientApi =
+    fun provideRetrofitClientApi() : ClientApi =
             Retrofit.Builder().baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(okhttpclient)
+                .client(OkHttpClient().newBuilder().build())
                 .build().create(ClientApi::class.java)
 }

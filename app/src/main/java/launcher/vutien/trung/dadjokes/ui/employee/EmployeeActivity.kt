@@ -18,9 +18,22 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 class EmployeeActivity : BaseMvpActivity<EmployeeContract.View,EmployeeContract.UserActionListener>()
 ,EmployeeContract.View{
+
+    @Inject
+    lateinit var clientApi: ClientApi
+
+    @Inject
+    lateinit var database: AppDatabase
+
+//    @Inject
+    lateinit var repositoryImpl: EmployeeRepositoryImpl
+
+    lateinit var employeeManager: DefaultEmployeeManager
+
     companion object {
         val TAG : String = "Acitivty"
     }
@@ -40,18 +53,23 @@ class EmployeeActivity : BaseMvpActivity<EmployeeContract.View,EmployeeContract.
     }
 
     override fun createPresenter(): EmployeeContract.UserActionListener {
-        val okhttp = OkHttpClient().newBuilder().build()
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .client(okhttp)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
+//        val okhttp = OkHttpClient().newBuilder().build()
+//        val retrofit = Retrofit.Builder()
+//            .baseUrl(Constants.BASE_URL)
+//            .client(okhttp)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//            .build()
+//
+//        val api = retrofit.create(ClientApi::class.java)
+//        val repositoryImpl = EmployeeRepositoryImpl(AppDatabase.getInstance(this)!!)
+//        val employeemanager  = DefaultEmployeeManager(repositoryImpl,api)
 
-        val api = retrofit.create(ClientApi::class.java)
-        val repositoryImpl = EmployeeRepositoryImpl(AppDatabase.getInstance(this)!!)
-        val employeemanager  = DefaultEmployeeManager(repositoryImpl,api)
-        return EmployeePresenter(employeemanager)
+
+        repositoryImpl = EmployeeRepositoryImpl(database)
+        employeeManager = DefaultEmployeeManager(repositoryImpl,clientApi)
+
+        return EmployeePresenter(employeeManager)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -15,25 +15,24 @@ abstract class AppDatabase : RoomDatabase(){
     abstract fun employeeDao() : EmployeeDao
 
     companion object {
-        private var instance : AppDatabase? = null
 
-        fun getInstance(context: Context) : AppDatabase? {
-            if(instance == null){
-                synchronized(AppDatabase::class){
-                    instance = Room
-                            .databaseBuilder(context.getApplicationContext(),
-                                    AppDatabase::class.java,
-                                    "employee_db")
-                            .allowMainThreadQueries()
-                            .build()
-                }
+        private var instance: AppDatabase? = null
+
+        fun getInstance(context: Context): AppDatabase {
+            if (instance == null) {
+                instance = Room
+                    .databaseBuilder(
+                        context.applicationContext,
+                        AppDatabase::class.java,
+                        "employee-db")
+                    .allowMainThreadQueries()
+                    .build()
             }
-            return instance
+            return instance!!
         }
 
-        fun destroyDb() {
+        fun destroyInstance() {
             instance = null
         }
-
     }
 }

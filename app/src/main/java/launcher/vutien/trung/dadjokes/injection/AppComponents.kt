@@ -1,6 +1,10 @@
 package launcher.vutien.trung.dadjokes.injection
 
+import android.app.Application
+import android.content.Context
+import dagger.BindsInstance
 import dagger.Component
+import launcher.vutien.trung.dadjokes.application.DadJokeApp
 import launcher.vutien.trung.dadjokes.injection.modules.AppModule
 import launcher.vutien.trung.dadjokes.injection.modules.NetworkModule
 import javax.inject.Singleton
@@ -11,5 +15,15 @@ import javax.inject.Singleton
     (NetworkModule::class)
 ])
 interface AppComponents{
-    
+        @Component.Builder
+        interface Builder{
+            @BindsInstance
+            fun application(application: Application) : Builder
+
+            fun build() : AppComponents
+        }
+
+    fun inject(application : DadJokeApp)
+
+    fun context(): Context
 }
