@@ -7,6 +7,7 @@ import dagger.Component
 import launcher.vutien.trung.dadjokes.application.DadJokeApp
 import launcher.vutien.trung.dadjokes.injection.modules.AppModule
 import launcher.vutien.trung.dadjokes.injection.modules.NetworkModule
+import launcher.vutien.trung.dadjokes.ui.employee.EmployeeActivity
 import javax.inject.Singleton
 
 @Singleton
@@ -24,6 +25,8 @@ interface AppComponents{
         }
 
     fun inject(application : DadJokeApp)
+
+    fun inject(application: EmployeeActivity)
 
     fun context(): Context
 }

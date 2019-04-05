@@ -22,9 +22,9 @@ class AppModule{
     fun provideAppDatabase(context : Context) : AppDatabase =
             AppDatabase.getInstance(context)
 
+    @Provides
+    @Singleton
     fun provideEmployeeRepository(appDatabase: AppDatabase) : EmployeeRepositoryImpl =
             EmployeeRepositoryImpl(appDatabase)
 
-    fun provideEmployeeManager(api : ClientApi,repository: EmployeeRepositoryImpl) : EmployeeManager =
-            DefaultEmployeeManager(repository,api)
 }

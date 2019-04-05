@@ -54,3 +54,14 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.16'
     kapt 'com.google.dagger:dagger-android-processor:2.16'
 }
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == "com.android.support") {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion "26.+"
+            }
+        }
+    }
+}
