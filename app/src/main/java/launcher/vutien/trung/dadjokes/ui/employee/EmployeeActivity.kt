@@ -18,14 +18,6 @@ import javax.inject.Inject
 class EmployeeActivity : BaseMvpActivity<EmployeeContract.View,EmployeeContract.UserActionListener>()
 ,EmployeeContract.View{
 
-    @Inject
-    lateinit var clientApi: ClientApi
-
-    @Inject
-    lateinit var repositoryImpl: EmployeeRepositoryImpl
-
-    lateinit var employeeManager: DefaultEmployeeManager
-
     companion object {
         val TAG : String = "Acitivty"
     }
@@ -47,10 +39,8 @@ class EmployeeActivity : BaseMvpActivity<EmployeeContract.View,EmployeeContract.
     override fun createPresenter(): EmployeeContract.UserActionListener {
 
         Log.i(TAG,"createPresenter")
-        DadJokeApp.appComponent.inject(this)
-        employeeManager = DefaultEmployeeManager(repositoryImpl,clientApi)
 
-        return EmployeePresenter(employeeManager)
+        return EmployeePresenter(DadJokeApp.appComponent.defaultEmployeeManager())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -8,6 +8,7 @@ import launcher.vutien.trung.dadjokes.api.ClientApi
 import launcher.vutien.trung.dadjokes.manager.DefaultEmployeeManager
 import launcher.vutien.trung.dadjokes.manager.EmployeeManager
 import launcher.vutien.trung.dadjokes.repository.AppDatabase
+import launcher.vutien.trung.dadjokes.repository.EmployeeRepository
 import launcher.vutien.trung.dadjokes.repository.EmployeeRepositoryImpl
 import javax.inject.Singleton
 
@@ -24,7 +25,11 @@ class AppModule{
 
     @Provides
     @Singleton
-    fun provideEmployeeRepository(appDatabase: AppDatabase) : EmployeeRepositoryImpl =
+    fun provideEmployeeRepository(appDatabase: AppDatabase) : EmployeeRepository =
             EmployeeRepositoryImpl(appDatabase)
 
+    @Provides
+    @Singleton
+    fun provideEmployeeManager(clientApi: ClientApi, repo: EmployeeRepository) : EmployeeManager =
+        DefaultEmployeeManager(repo,clientApi)
 }

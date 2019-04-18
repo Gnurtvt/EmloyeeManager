@@ -1,15 +1,12 @@
 package launcher.vutien.trung.dadjokes.manager
 
 import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import launcher.vutien.trung.dadjokes.api.ClientApi
 import launcher.vutien.trung.dadjokes.entity.Employee
-import launcher.vutien.trung.dadjokes.repository.EmployeeRepositoryImpl
+import launcher.vutien.trung.dadjokes.repository.EmployeeRepository
 
 class DefaultEmployeeManager(
-    private val repository: EmployeeRepositoryImpl,
+    private val repository: EmployeeRepository,
     private val api: ClientApi
 ) : EmployeeManager {
 
